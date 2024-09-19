@@ -15,15 +15,17 @@ class _HomeState extends State<Home> {
       backgroundColor: const Color(0xFF014B52), // Color de fondo
       appBar: AppBar(
         backgroundColor: Colors.transparent, // Hacer el AppBar transparente
-        title: Container(
-          decoration: BoxDecoration(
-            color: Colors.white, // Fondo blanco para el rectángulo
-            borderRadius: BorderRadius.circular(20), // Bordes redondeados
-          ),
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: const Text(
-            "Notificaciones de actividades",
-            style: TextStyle(color: Colors.black), // Texto negro
+        title: Center( // Centrar el título
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white, // Fondo blanco para el rectángulo
+              borderRadius: BorderRadius.circular(20), // Bordes redondeados
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: const Text(
+              "Notificaciones de actividades",
+              style: TextStyle(color: Colors.black), // Texto negro
+            ),
           ),
         ),
       ),
@@ -48,7 +50,6 @@ class _HomeState extends State<Home> {
                 },
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Container(
@@ -74,7 +75,7 @@ class _HomeState extends State<Home> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Número: $numero", style: const TextStyle(fontWeight: FontWeight.bold)),
+            Text("$numero", style: const TextStyle(fontWeight: FontWeight.bold)),
             SizedBox(height: 5),
             Text(titulo, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
             SizedBox(height: 5),
@@ -84,20 +85,32 @@ class _HomeState extends State<Home> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  TextButton.icon(
-                    onPressed: () {
-                      print("Ver más ID: $id");
-                    },
-                    icon: const Icon(Icons.arrow_forward, size: 16),
-                    label: const Text("Ver más"),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF014B52), // Color del rectángulo
+                      borderRadius: BorderRadius.circular(10), // Bordes redondeados
+                    ),
+                    child: TextButton.icon(
+                      onPressed: () {
+                        print("Ver más ID: $id");
+                      },
+                      icon: const Icon(Icons.arrow_forward, size: 16, color: Colors.white),
+                      label: const Text("Ver más", style: TextStyle(color: Colors.white)),
+                    ),
                   ),
                   SizedBox(width: 10),
-                  TextButton.icon(
-                    onPressed: () {
-                      print("Borrar ID: $id");
-                    },
-                    icon: const Icon(Icons.delete, size: 16),
-                    label: const Text("Borrar"),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF014B52), // Color del rectángulo
+                      borderRadius: BorderRadius.circular(10), // Bordes redondeados
+                    ),
+                    child: TextButton.icon(
+                      onPressed: () {
+                        print("Borrar ID: $id");
+                      },
+                      icon: const Icon(Icons.delete, size: 16, color: Colors.white),
+                      label: const Text("Borrar", style: TextStyle(color: Colors.white)),
+                    ),
                   ),
                 ],
               ),

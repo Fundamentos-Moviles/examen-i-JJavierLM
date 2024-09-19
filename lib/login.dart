@@ -156,7 +156,7 @@ class _loginState extends State<Login> {
       duration: Duration(seconds: duracion),
       action: SnackBarAction(
         onPressed: () {},
-        label: 'Cerrar',
+       label: 'Cerrar',
       ),
     );
 
