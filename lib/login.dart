@@ -10,23 +10,24 @@ class Login extends StatefulWidget {
 
 class _loginState extends State<Login> {
   TextEditingController user = TextEditingController();
-  final pass = TextEditingController();
+  TextEditingController pass = TextEditingController();
+  String? errorMessage;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Color(0xFF014B52), // Color de fondo principal
+        color: Color(0xFF014B52),
         child: Stack(
           children: [
             GridView.count(
-              crossAxisCount: 5, // 5 columnas para ajustar los colores
+              crossAxisCount: 5,
               children: List.generate(15, (index) {
                 return Container(
                   margin: EdgeInsets.all(4.0),
                   decoration: BoxDecoration(
-                    color: _getColor(index), // Color basado en el índice
-                    borderRadius: BorderRadius.circular(20), // Esquinas redondeadas
+                    color: _getColor(index),
+                    borderRadius: BorderRadius.circular(20),
                   ),
                 );
               }),
@@ -37,7 +38,7 @@ class _loginState extends State<Login> {
                 padding: EdgeInsets.all(20.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30),
-                  color: Colors.white.withOpacity(0.8), // Color blanco con opacidad
+                  color: Colors.white.withOpacity(0.8),
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -51,7 +52,6 @@ class _loginState extends State<Login> {
                       ),
                     ),
                     const SizedBox(height: 20.0),
-                    const Text('Correo/Usuario:'),
                     TextFormField(
                       controller: user,
                       decoration: InputDecoration(
@@ -68,7 +68,6 @@ class _loginState extends State<Login> {
                       ),
                     ),
                     const SizedBox(height: 10.0),
-                    const Text('Contraseña:'),
                     TextFormField(
                       controller: pass,
                       obscureText: true,
@@ -85,7 +84,14 @@ class _loginState extends State<Login> {
                         hintText: 'Contraseña',
                       ),
                     ),
-                    const SizedBox(height: 20.0),
+                    const SizedBox(height: 10.0),
+                    if (errorMessage != null) ...[
+                      Text(
+                        errorMessage!,
+                        style: TextStyle(color: Colors.red, fontSize: 16),
+                      ),
+                      const SizedBox(height: 10.0),
+                    ],
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFFFFD700),
@@ -96,19 +102,19 @@ class _loginState extends State<Login> {
                       ),
                       onPressed: () {
                         setState(() {
-                          print('Usuario: ${user.text}');
-                          print("Contraseña: ${pass.text}");
-
-                          if (user.text == "USER01" && pass.text == "PASS01") {
-                            print('Ingreso correctamente');
+                          if (user.text.isEmpty || pass.text.isEmpty) {
+                            errorMessage = 'Datos incompletos';
+                          } else if (user.text != "test") {
+                            errorMessage = 'Usuario incorrecto';
+                          } else if (pass.text != "FDM1") {
+                            errorMessage = 'Contraseña incorrecta';
+                          } else {
+                            errorMessage = null; // Reiniciar mensaje de error
                             showSnackBar('Ingreso correctamente', 10);
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) => Home()),
                             );
-                          } else {
-                            print('Usuario y/o Contraseña incorrectos');
-                            showSnackBar('Usuario y/o Contraseña incorrectos', 20);
                           }
                         });
                       },
@@ -130,18 +136,17 @@ class _loginState extends State<Login> {
   }
 
   Color _getColor(int index) {
-    // Colores de fondo para los rectángulos según las filas
     List<Color> colors = [
       Color(0xFF015C64), Color(0xFF014B52), Color(0xFF014B52),
       Color(0xFF013741), Color(0xFF02B2B2),
     ];
 
     if (index < 5) {
-      return colors[index]; // Primera fila
+      return colors[index];
     } else if (index < 10) {
-      return colors[4 - (index - 5)]; // Segunda fila
+      return colors[4 - (index - 5)];
     } else {
-      return colors[index - 10]; // Tercera fila
+      return colors[index - 10];
     }
   }
 
@@ -158,3 +163,4 @@ class _loginState extends State<Login> {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }
+

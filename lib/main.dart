@@ -1,5 +1,5 @@
+import 'package:examen1_jjlm/more_info.dart';
 import 'package:flutter/material.dart';
-//import 'package:primera_app_8_9/home.dart';
 import 'package:examen1_jjlm/login.dart';
 
 void main() {
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const Login(),
+      home: const Info(),
     );
   }
 }
